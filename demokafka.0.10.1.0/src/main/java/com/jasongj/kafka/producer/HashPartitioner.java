@@ -9,6 +9,9 @@ import java.util.Map;
 
 /**
  * 实现HashPartitioner从而保证key相同的消息被发送到同一个Partition
+ * example:
+ * props.put("partitioner.class", HashPartitioner.class.getName());
+ * props.put("interceptor.classes", EvenProducerInterceptor.class.getName());
  */
 public class HashPartitioner implements Partitioner {
 
