@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class DemoConsumerCommitCallback {
+public class CommitCallbackDemo {
 
     public static void main(String[] args) throws Exception {
         args = new String[]{"kafka0:9092", "topic1", "group11", "consumer2"};
