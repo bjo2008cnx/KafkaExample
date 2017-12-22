@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.Properties;
 
 /**
- * 指定分区示例
+ * 自动提交并指定分区
  */
 public class DemoConsumerAssign {
 

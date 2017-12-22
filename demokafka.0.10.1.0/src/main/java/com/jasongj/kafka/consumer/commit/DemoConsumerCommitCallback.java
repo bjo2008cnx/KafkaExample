@@ -1,4 +1,4 @@
-package com.jasongj.kafka.consumer;
+package com.jasongj.kafka.consumer.commit;
 
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -38,16 +38,16 @@ public class DemoConsumerCommitCallback {
         consumer.subscribe(Arrays.asList(topic));
         AtomicLong atomicLong = new AtomicLong();
 
-        //异步批量commit
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
             records.forEach(record -> {
                 System.out.printf("client : %s , topic: %s , partition: %d , offset = %d, key = %s, value = %s%n", clientid, record.topic(), record.partition
                         (), record.offset(), record.key(), record.value());
+                //异步批量commit
                 if (atomicLong.getAndIncrement() % 10 == 0) {
                     OffsetCommitCallback callback = (Map<TopicPartition, OffsetAndMetadata> offsets, Exception exception) -> {
-                        offsets.forEach((TopicPartition partition, OffsetAndMetadata offset) -> System.out.printf("Commit %s-%d-%d %n", partition.topic(),
-                                partition.partition(), offset.offset()));
+                        offsets.forEach((TopicPartition partition, OffsetAndMetadata offset) ->
+                                System.out.printf("Commit %s-%d-%d %n", partition.topic(),partition.partition(), offset.offset()));
                         if (exception != null) {
                             exception.printStackTrace();
                         }
