@@ -12,13 +12,13 @@ import java.util.List;
 import java.util.Properties;
 
 /**
- * CommitPartiionDemo
+ * 精细的控制对具体分区具体offset数据的确认
  *
  * @author Michael.Wang
  * @date 2017/12/22
  */
-public class CommitPartiionDemo {
-    private static boolean running;
+public class ManualCommitPartiionDemo {
+    private static boolean running = false;
 
     public static void main(String[] args) {
         Properties props = new Properties();
@@ -38,6 +38,7 @@ public class CommitPartiionDemo {
             while (running) {
                 ConsumerRecords<String, String> records = consumer.poll(Long.MAX_VALUE);
                 for (TopicPartition partition : records.partitions()) {
+                    //按分区消费
                     List<ConsumerRecord<String, String>> partitionRecords = records.records(partition);
                     for (ConsumerRecord<String, String> record : partitionRecords) {
                         System.out.println(record.offset() + ": " + record.value());
