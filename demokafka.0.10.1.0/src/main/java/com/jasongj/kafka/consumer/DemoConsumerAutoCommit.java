@@ -1,14 +1,15 @@
 package com.jasongj.kafka.consumer;
 
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.serialization.StringDeserializer;
+
 import java.util.Arrays;
 import java.util.Properties;
 
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.common.serialization.IntegerDeserializer;
-import org.apache.kafka.common.serialization.LongDeserializer;
-import org.apache.kafka.common.serialization.StringDeserializer;
-
+/**
+ * 自动commit  示例
+ */
 public class DemoConsumerAutoCommit {
 
 	public static void main(String[] args) {
