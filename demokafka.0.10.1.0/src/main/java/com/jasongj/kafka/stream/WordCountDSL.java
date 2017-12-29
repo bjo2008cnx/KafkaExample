@@ -1,8 +1,5 @@
 package com.jasongj.kafka.stream;
 
-import java.util.Arrays;
-import java.util.Properties;
-
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
@@ -13,13 +10,16 @@ import org.apache.kafka.streams.kstream.KStreamBuilder;
 import org.apache.kafka.streams.kstream.TimeWindows;
 import org.apache.kafka.streams.kstream.Windowed;
 
+import java.util.Arrays;
+import java.util.Properties;
+
 public class WordCountDSL {
 
 	public static void main(String[] args) throws InterruptedException {
 		Properties props = new Properties();
 		props.put(StreamsConfig.APPLICATION_ID_CONFIG, "streams-wordcount-dsl");
 		props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "kafka0:19092");
-		props.put(StreamsConfig.ZOOKEEPER_CONNECT_CONFIG, "zookeeper0:12181/kafka");
+		props.put(StreamsConfig.ZOOKEEPER_CONNECT_CONFIG, "kafka0:2181/kafka");
 		props.put(StreamsConfig.KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 		props.put(StreamsConfig.VALUE_SERDE_CLASS_CONFIG, Serdes.String().getClass());
 		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
