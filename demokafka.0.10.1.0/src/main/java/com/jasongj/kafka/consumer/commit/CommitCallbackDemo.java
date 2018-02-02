@@ -45,17 +45,21 @@ public class CommitCallbackDemo {
                         (), record.offset(), record.key(), record.value());
                 //异步批量commit
                 if (atomicLong.getAndIncrement() % 10 == 0) {
-                    OffsetCommitCallback callback = (Map<TopicPartition, OffsetAndMetadata> offsets, Exception exception) -> {
-                        offsets.forEach((TopicPartition partition, OffsetAndMetadata offset) ->
-                                System.out.printf("Commit %s-%d-%d %n", partition.topic(),partition.partition(), offset.offset()));
-                        if (exception != null) {
-                            exception.printStackTrace();
-                        }
-                    };
+                    OffsetCommitCallback callback = getOffsetCommitCallback();
                     consumer.commitAsync(callback);
                 }
             });
         }
+    }
+
+    private static OffsetCommitCallback getOffsetCommitCallback() {
+        return (Map<TopicPartition, OffsetAndMetadata> offsets, Exception exception) -> {
+            offsets.forEach((TopicPartition partition, OffsetAndMetadata offset) -> System.out.printf("Commit %s-%d-%d %n", partition.topic(), partition
+                    .partition(), offset.offset()));
+            if (exception != null) {
+                exception.printStackTrace();
+            }
+        };
     }
 
 }

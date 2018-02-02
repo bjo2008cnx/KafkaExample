@@ -30,14 +30,17 @@ public class AutoCommitDemo {
          /* 定义consumer */
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         /* 消费者订阅的topic, 可同时订阅多个 */
-        consumer.subscribe(Arrays.asList("foo", "bar"));
+        consumer.subscribe(Arrays.asList("michael", "bar"));
 
          /* 读取数据，读取超时时间为100ms */
-        while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(100);
-            for (ConsumerRecord<String, String> record : records)
-                System.out.printf("offset = %d, key = %s, value = %s", record.offset(), record.key(), record.value());
+        //while (true) {
+        ConsumerRecords<String, String> records = consumer.poll(100);
+        System.out.println(records.count());
+        for (ConsumerRecord<String, String> record : records) {
+            String out = String.format("offset = %d, key = %s, value = %s ", record.offset(), record.key(), record.value());
+            System.out.println(out);
         }
+        //}
     }
 
 }

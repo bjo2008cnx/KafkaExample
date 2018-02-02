@@ -23,8 +23,10 @@ public class ProducerDemo {
 		props.put("interceptor.classes", EvenProducerInterceptor.class.getName());
 
 		Producer<String, String> producer = new KafkaProducer<String, String>(props);
-		for (int i = 0; i < 10; i++)
-			producer.send(new ProducerRecord<String, String>("topic1", Integer.toString(i), Integer.toString(i)));
+		for (int i = 10000; i < 20000; i++) {
+			producer.send(new ProducerRecord<>("test_20180201", Integer.toString(i), Integer.toString(i)));
+			Thread.sleep(10);
+		}
 		producer.close();
 	}
 
